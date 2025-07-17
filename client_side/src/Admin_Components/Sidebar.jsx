@@ -14,6 +14,7 @@ const Sidebar = ({
   onEditTourDetailsClick,
   onDeleteTourClick,
   onEditItinerary,
+  onEditGallery,
 }) => {
   const [isTourOpen, setisTourOpen] = useState(false);
   const [isBikeOpen, setisBikeOpen] = useState(false);
@@ -58,7 +59,13 @@ const Sidebar = ({
               >
                 <Link to="#">Edit Testimonials</Link>
               </li>
-              <li className="hover:text-white">
+              <li
+                className="hover:text-white"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onEditGallery();
+                }}
+              >
                 <Link to="#">Edit Gallery</Link>
               </li>
             </ul>

@@ -43,19 +43,25 @@ const Itinerary_Gallery = () => {
           Recent & Previous Trips
         </h1>
         <div className="Gallery pb-10 gap-3 font-bebas">
-          {tour?.gallery_images?.map((img, index) => (
-            <div
-              key={index}
-              onClick={() => openLightbox(img)}
-              className="cursor-pointer"
-            >
-              <img
-                src={img}
-                alt={`Gallery ${index}`}
-                className="w-30 h-10 object-cover"
-              />
-            </div>
-          ))}
+          {tour?.gallery_images?.map((img, index) => {
+            const transformedUrl = img.replace(
+              "/upload/",
+              "/upload/w_1200,h_900,c_fill/"
+            );
+            return (
+              <div
+                key={index}
+                onClick={() => openLightbox(img)}
+                className="cursor-pointer"
+              >
+                <img
+                  src={transformedUrl}
+                  alt={`Gallery ${index}`}
+                  className="w-30 h-10 object-cover"
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

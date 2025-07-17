@@ -1,5 +1,12 @@
-import React from "react";
 import bgimage from "./../../assets/images/uppermustang2.png";
+import sherapsherpa from "./../../assets/images/sherapsherpa.jpg";
+import roshan from "./../../assets/images/roshan.jpg";
+import pawan from "./../../assets/images/pawan.jpg";
+import nimadorje from "./../../assets/images/Nima-Dorje.jpg";
+import manohar from "./../../assets/images/manohar.jpg";
+import team from "./../../assets/images/whoweare.jpg";
+import cover from "./../../assets/images/aboutuscover.jpg";
+
 import { useEffect } from "react";
 
 const AboutUs = () => {
@@ -11,7 +18,7 @@ const AboutUs = () => {
       <div
         className="hero min-h-screen"
         style={{
-          backgroundImage: `url(${bgimage})`,
+          backgroundImage: `url(${cover})`,
         }}
       >
         <div className="hero-overlay"></div>
@@ -35,7 +42,7 @@ const AboutUs = () => {
             >
               Who We Are
             </h1>
-            <div className="font-nunito " style={{ textAlign: "justify" }}>
+            <div className="font-nunito text-justify">
               <p className="pb-3">
                 Wild Tracks is a touring company specializing in high quality
                 adventure motorbike tours. Wild Tracks offers fully guided
@@ -59,7 +66,7 @@ const AboutUs = () => {
             </div>
           </div>
           <div className="w-1/2">
-            <img src={bgimage} />
+            <img src={team} />
           </div>
         </div>
       </div>
@@ -95,16 +102,13 @@ const AboutUs = () => {
             </div>
           </div>
           <div className="w-1/2">
-            <img src={bgimage} />
+            <img src={sherapsherpa} />
           </div>
         </div>
       </div>
 
       {/*Nima Dorje*/}
-      <div
-        className="m-15 min-h-40 flex justify-around "
-        style={{ backgroundColor: "#dddd" }}
-      >
+      <div className="m-15 min-h-40 bg-[#dddd] flex justify-around ">
         <div className="col-span-2 pt-10 pr-5">
           <h2
             className="flex font-bold uppercase font-poppins justify-center"
@@ -114,7 +118,7 @@ const AboutUs = () => {
           >
             Nima Dorje - Assistant Tour Leader
           </h2>
-          <p className="pr-5 pl-5">
+          <p className="pr-5 font-nunito pl-5">
             Nima, a young and energetic rider accompanies most of our tours as
             assistant guide. He is the one who makes sure no-one is left behind
             or stuck due bike issues during our tour. He loves talking and his
@@ -122,11 +126,8 @@ const AboutUs = () => {
           </p>
         </div>
 
-        <div
-          className="flex justify-end"
-          style={{ width: "300px", height: "200px", flexShrink: 0 }}
-        >
-          <img className="h-full object-cover w-full" src={bgimage} />
+        <div className="flex w-[300px] h-[300px] justify-end shrink-0">
+          <img className="h-full object-cover w-full" src={nimadorje} />
         </div>
       </div>
 
@@ -144,7 +145,7 @@ const AboutUs = () => {
           >
             Pumar Kumar Limbu - Overseas contact
           </h2>
-          <p className="pr-5 pl-5 pb-5">
+          <p className="pr-5 font-nunito pl-5 pb-5">
             Pumar Kumar Limbu or we simply call him Paone Bhai originally from
             Dharan, East Nepal, currently living in Hobart, Tasmania is our
             contact for Australian Continent. A young and passionate rider with
@@ -154,11 +155,8 @@ const AboutUs = () => {
           </p>
         </div>
 
-        <div
-          className="flex justify-end"
-          style={{ width: "300px", height: "200px", flexShrink: 0 }}
-        >
-          <img className="h-full object-cover w-full" src={bgimage} />
+        <div className="flex w-[300px] h-[300px] justify-end shrink-0">
+          <img className="h-full object-cover w-full" src={pawan} />
         </div>
       </div>
 
@@ -176,18 +174,15 @@ const AboutUs = () => {
           >
             Roshan Tamang - our patient driver
           </h2>
-          <p className="pr-5 pl-5">
+          <p className="pr-5 font-nunito pl-5">
             Roshan has been with us since August 2016. He has been working as a
             professional driver for more than a decade and has travelled all
             over Nepal with us
           </p>
         </div>
 
-        <div
-          className="flex justify-end"
-          style={{ width: "300px", height: "200px", flexShrink: 0 }}
-        >
-          <img className="h-full object-cover w-full" src={bgimage} />
+        <div className="flex w-[300px] h-[300px] justify-end shrink-0">
+          <img className="h-full object-cover w-full" src={roshan} />
         </div>
       </div>
 
@@ -205,7 +200,7 @@ const AboutUs = () => {
           >
             Manohar Muhammud - Our bike doctor
           </h2>
-          <p className="pr-5 pl-5">
+          <p className="pr-5 font-nunito pl-5">
             Manohar - our bike doctor can figure out most bike problems by
             listening to the sound. He accompanies us as our official mechanic
             in all our tours. Manohar originally comes from Bihar, India and
@@ -214,11 +209,8 @@ const AboutUs = () => {
           </p>
         </div>
 
-        <div
-          className="flex justify-end"
-          style={{ width: "300px", height: "200px", flexShrink: 0 }}
-        >
-          <img className="h-full object-cover w-full" src={bgimage} />
+        <div className="flex w-[300px] h-[300px] justify-end shrink-0">
+          <img className="h-full object-cover w-full" src={manohar} />
         </div>
       </div>
     </div>

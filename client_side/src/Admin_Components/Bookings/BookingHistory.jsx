@@ -88,6 +88,21 @@ const BookingHistory = () => {
                   className="p-4 bg-gray-800 border-2
                 border-black font-semibold"
                 >
+                  Date
+                </td>
+                <td className="p-4 border-2 border-black">
+                  {new Date(tableData.start_date).toLocaleDateString("en-GB", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </td>
+              </tr>
+              <tr>
+                <td
+                  className="p-4 bg-gray-800 border-2
+                border-black font-semibold"
+                >
                   Status
                 </td>
                 <td className="p-4 border-2 border-black">

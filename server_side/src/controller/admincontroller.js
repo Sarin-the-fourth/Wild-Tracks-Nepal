@@ -130,13 +130,10 @@ export const createTourWithItinerary = async (req, res) => {
       }
     }
 
-    // Create new tour
     const newTour = new Tour(tourData);
 
-    // Save tour to database
     const savedTour = await newTour.save();
 
-    // Prepare itinerary items with tour reference
     const itineraryItems = itinerary.map((item) => ({
       tour: savedTour._id,
       day: Number(item.day),
@@ -144,7 +141,6 @@ export const createTourWithItinerary = async (req, res) => {
       description: item.description,
     }));
 
-    // Validate itinerary items
     if (itineraryItems.length !== Number(numberofdays)) {
       return res.status(400).json({
         success: false,
@@ -152,7 +148,6 @@ export const createTourWithItinerary = async (req, res) => {
       });
     }
 
-    // Save all itinerary items
     const savedItinerary = await Itinerary.insertMany(itineraryItems);
 
     return res.status(201).json({
@@ -193,7 +188,6 @@ export const getTourWithItinerary = async (req, res) => {
       });
     }
 
-    // Get itinerary for this tour
     const itinerary = await Itinerary.find({ tour: tourId }).sort({ day: 1 });
 
     return res.status(200).json({
@@ -206,7 +200,6 @@ export const getTourWithItinerary = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Internal server error",
-      error: error.message,
     });
   }
 };
@@ -303,6 +296,59 @@ export const update_testimonials = async (req, res) => {
   }
 };
 
+export const add_image_gallery = async (req, res) => {
+  try {
+    const { gallery } = req.body;
+
+    if (!Array.isArray(gallery) || gallery.length === 0) {
+      return res.status(400).json({ message: "All Fields are required" });
+    }
+
+    const uploadGallery = [];
+
+    for (const item of gallery) {
+      const { name, url } = item;
+
+      if (!name || !url) {
+        return res.status(400).json({
+          message: "Each gallery item must have a name and url",
+        });
+      }
+
+      let imageUrl = url;
+
+      if (url.startsWith("data:image")) {
+        const uploadResponse = await cloudinary.uploader.upload(url, {
+          folder: "Homepage/Gallery",
+        });
+        imageUrl = uploadResponse.secure_url;
+      }
+      uploadGallery.push({ name, url: imageUrl });
+    }
+
+    const homepage = await Homepage.findOne();
+    if (!homepage) {
+      return res.status(404).json({
+        message: "Homepage not found!",
+      });
+    }
+
+    homepage.gallery.push(...uploadGallery);
+    await homepage.save();
+
+    res.status(200).json({
+      message: "Photos added successfully,",
+      gallery: homepage.gallery,
+    });
+  } catch (error) {
+    console.log("Error Adding image: ", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+
 export const add_bikes = async (req, res) => {
   try {
     let {
@@ -316,14 +362,12 @@ export const add_bikes = async (req, res) => {
       isNewModel,
     } = req.body;
 
-    // Validate isNewModel flag
     if (typeof isNewModel === "undefined") {
       return res.status(400).json({
         message: "isNewModel flag is required in the request body",
       });
     }
 
-    // Check if bike number already exists
     const existingBike = await Bike.findOne({ bike_number });
     if (existingBike) {
       return res.status(409).json({
@@ -334,7 +378,6 @@ export const add_bikes = async (req, res) => {
     let uploadedBikeImage = bike_image;
 
     if (isNewModel === true || isNewModel === "true") {
-      // For new model, require all details
       if (
         !bike_number ||
         !bike_brand ||
@@ -348,7 +391,7 @@ export const add_bikes = async (req, res) => {
           message: "All required fields must be provided for a new model",
         });
       }
-      // Upload image if needed
+
       if (bike_image && bike_image.startsWith("data:image")) {
         try {
           const uploadResponse = await cloudinary.uploader.upload(bike_image, {
@@ -372,21 +415,17 @@ export const add_bikes = async (req, res) => {
         }
       }
     } else {
-      // Existing model: fetch details from DB
       const existingModel = await Bike.findOne({ bike_model });
       if (!existingModel) {
         return res.status(400).json({
           message: "Bike model not found. Please check the model name.",
         });
       }
-      // Use provided values if present, otherwise inherit from existing model
       if (!bike_brand) bike_brand = existingModel.bike_brand;
       if (!bike_description) bike_description = existingModel.bike_description;
       if (!bike_image) bike_image = existingModel.bike_image;
       if (!bike_price) bike_price = existingModel.bike_price;
-      // After inheriting the image, assign uploadedBikeImage
       uploadedBikeImage = bike_image;
-      // Validate required fields after fallback
       if (
         !bike_number ||
         !bike_brand ||
@@ -400,7 +439,7 @@ export const add_bikes = async (req, res) => {
           .status(400)
           .json({ message: "All required fields must be provided" });
       }
-      // Upload image if provided as data URI
+
       if (bike_image && bike_image.startsWith("data:image")) {
         try {
           const uploadResponse = await cloudinary.uploader.upload(bike_image, {
@@ -619,6 +658,23 @@ export const delete_pending_bookings = async (req, res) => {
   }
 };
 
+export const delete_cancelled_bookings = async (req, res) => {
+  try {
+    const { bookingId } = req.params;
+    const deletebookings = await Booking.findOneAndDelete(bookingId);
+    if (!deletebookings) {
+      return res.status(404).json({
+        message: "Booking not found",
+      });
+    }
+  } catch (error) {
+    console.log("Error deleting cancelled bookings: ", error);
+    return res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+};
+
 export const get_confirmed_bookings = async (req, res) => {
   try {
     const bookings = await Booking.find({ status: "confirmed" })
@@ -654,9 +710,9 @@ export const get_booking_history = async (req, res) => {
     if (!bookings || bookings.length === 0) {
       return res.status(404).json({ message: "No booking history found" });
     }
-    // Sort bookings by start_date in descending order
+
     bookings.sort((a, b) => new Date(b.start_date) - new Date(a.start_date));
-    // Format start_date and end_date to ISO date string
+
     bookings.forEach((booking) => {
       booking.start_date = booking.start_date
         ? new Date(booking.start_date).toISOString().split("T")[0]
@@ -697,7 +753,7 @@ export const get_tour = async (req, res) => {
     return res.status(200).json({
       message: "Tour fetched successfully",
       ...tour.toObject(),
-      itinerary, // Include the itinerary in the response
+      itinerary,
     });
   } catch (error) {
     console.log("Error in get_tour:", error);
@@ -733,7 +789,6 @@ export const respond_booking = async (req, res) => {
 
     booking.status = status;
 
-    //sending email notification based on status
     if (status === "approved") {
       await sendMail(
         booking.email,
@@ -806,17 +861,15 @@ export const edit_booking = async (req, res) => {
     newEndDate.setDate(newStartDate.getDate() + booking.tour.numberofdays);
 
     const overlappingBooking = await Booking.findOne({
-      _id: { $ne: bookingId }, // exclude current booking
+      _id: { $ne: bookingId },
       assigned_bike: { $in: assigned_bike },
       status: { $in: ["approved", "confirmed"] },
       $or: [
         {
-          // Case 1: New booking starts during an existing booking
           start_date: { $lt: newEndDate },
           end_date: { $gt: newStartDate },
         },
         {
-          // Case 2: New booking encompasses an existing booking
           start_date: { $gte: newStartDate },
           end_date: { $lte: newEndDate },
         },
@@ -829,7 +882,6 @@ export const edit_booking = async (req, res) => {
       });
     }
 
-    // Update booking dates
     booking.start_date = newStartDate;
     booking.end_date = newEndDate;
     booking.pax_no = pax_no;
@@ -883,27 +935,23 @@ export const assign_bikes = async (req, res) => {
   try {
     const { bookingId, bikeNumbers } = req.body;
 
-    // Validate input
     if (!bookingId || !Array.isArray(bikeNumbers) || bikeNumbers.length === 0) {
       return res
         .status(400)
         .json({ error: "bookingId and bikeNumbers are required" });
     }
 
-    // Find bike IDs for the given bike numbers
     const bikes = await Bike.find({ bike_number: { $in: bikeNumbers } });
     if (!bikes || bikes.length !== bikeNumbers.length) {
       return res.status(404).json({ error: "One or more bikes not found" });
     }
     const bikeIds = bikes.map((b) => b._id);
 
-    // Find the booking to get start_date and end_date
     const booking = await Booking.findById(bookingId);
     if (!booking) {
       return res.status(404).json({ error: "Booking not found" });
     }
 
-    // Update booking with assigned bikes and approve
     booking.assigned_bike = bikeIds;
 
     const overlappingBooking = await Booking.findOne({
@@ -927,7 +975,6 @@ export const assign_bikes = async (req, res) => {
     booking.status = "approved";
     await booking.save();
 
-    // If current date is between booking start and end date, make bikes unavailable
     const today = new Date();
     if (booking.start_date <= today && booking.end_date >= today) {
       await Bike.updateMany(

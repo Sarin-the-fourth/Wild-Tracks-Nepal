@@ -123,7 +123,7 @@ const Contact = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="text-black  p-2 pl-2 w-full mt-2 font-montserrat focus:outline-none focus:shadow-xl bg-transparent placeholder-shown:bg-white transition-all duration-300"
+              className="text-black p-2 pl-2 w-full mt-2 font-montserrat focus:outline-none focus:shadow-xl bg-transparent placeholder-shown:bg-white transition-all duration-300"
               required
               placeholder="Enter your email"
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"

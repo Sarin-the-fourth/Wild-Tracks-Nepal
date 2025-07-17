@@ -100,7 +100,7 @@ const EditCard = () => {
               if (homepage && homepage._id) {
                 handleupdateCard({
                   homepageId: homepage._id,
-                  card: [card1, card2, card3],
+                  card: [card1, card2, card3].filter((id) => id),
                 });
               }
             }}

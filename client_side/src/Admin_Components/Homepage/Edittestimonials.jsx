@@ -73,20 +73,22 @@ const EditTestimonials = () => {
             className="w-full bg-white focus:outline-none hover:outline-none font-montserrat p-2 rounded"
           />
 
-          <button
-            onClick={() => {
-              if (homepage && homepage._id) {
-                handleupdateTestimonials({
-                  homepageId: homepage._id,
-                  testimonials: [testimonial1, testimonial2, testimonial3],
-                });
-              }
-            }}
-            disabled={loading}
-            className="px-6 py-2 mt-5 font-montserrat text-right  bg-gray-600 text-white font-bold rounded hover:bg-[#fdb913] transition mr-2"
-          >
-            Update
-          </button>
+          <div className="flex pt-2 justify-end">
+            <button
+              onClick={() => {
+                if (homepage && homepage._id) {
+                  handleupdateTestimonials({
+                    homepageId: homepage._id,
+                    testimonials: [testimonial1, testimonial2, testimonial3],
+                  });
+                }
+              }}
+              disabled={loading}
+              className="px-6 py-2 mt-5 font-montserrat text-right  bg-gray-600 text-white font-bold rounded hover:bg-[#fdb913] transition mr-2"
+            >
+              Update
+            </button>
+          </div>
         </div>
       </div>
     </>

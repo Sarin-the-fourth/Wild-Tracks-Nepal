@@ -30,24 +30,30 @@ const Book = () => {
                 ...new Map(
                   bikes.map((item) => [item.bike_model, item])
                 ).values(),
-              ].map((items) => (
-                <div className="ml-5 flex flex-col items-center justify-center space-y-2">
-                  <img
-                    className="w-70 h-70 border-1"
-                    src={items?.bike_image}
-                    alt="bike_image"
-                  />
-                  <h1 className="font-montserrat font-bold text-lg">
-                    The {items.bike_model}
-                  </h1>
-                  <p className="font-montserrat font-normal text-medium">
-                    {items.bike_description}
-                  </p>
-                  <p className="font-montserrat mb-10 font-semibold text-medium">
-                    Price/day: {items.bike_price}$
-                  </p>
-                </div>
-              ))}
+              ].map((items) => {
+                const transformedUrl = items.bike_image.replace(
+                  "/upload/",
+                  "/upload/w_1200,h_900,c_fit/"
+                );
+                return (
+                  <div className="ml-5 flex flex-col items-center justify-center space-y-2">
+                    <img
+                      className="w-full h-70 max-w-[300px]"
+                      src={transformedUrl}
+                      alt="bike_image"
+                    />
+                    <h1 className="font-montserrat font-bold text-lg">
+                      The {items.bike_model}
+                    </h1>
+                    <p className="font-montserrat font-normal text-medium">
+                      {items.bike_description}
+                    </p>
+                    <p className="font-montserrat mb-10 font-semibold text-medium">
+                      Price/day: {items.bike_price}$
+                    </p>
+                  </div>
+                );
+              })}
             </div>
             <button
               className=" absolute top-2 right-4 rounded text-xl text-black hover:text-2xl focus:text-yellow-400 font-montserrat transition-all duration-300"

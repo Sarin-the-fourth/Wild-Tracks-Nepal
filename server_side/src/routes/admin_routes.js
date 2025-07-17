@@ -22,6 +22,7 @@ import {
   update_tour_info,
   delete_tour,
   update_itinerary,
+  add_image_gallery,
 } from "../controller/admincontroller.js";
 import { respond_booking, get_bikes } from "../controller/admincontroller.js";
 import { updateProfile } from "../controller/authcontroller.js";
@@ -60,6 +61,7 @@ router.post("/release-expired-bikes", free_bikes_after_tour);
 router.get("/get_homepage", get_homepage);
 router.put("/update-card/:homepageId", updateCard);
 router.put("/update_testimonials/:homepageId", update_testimonials);
+router.post("/add_gallery_image", add_image_gallery);
 
 router.put("/update-profile/:adminId", updateProfile);
 export default router;

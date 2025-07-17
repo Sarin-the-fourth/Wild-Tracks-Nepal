@@ -111,7 +111,7 @@ export const useAdminStore = create((set) => ({
       set({ bookings: res.data.bookings });
     } catch (error) {
       console.log("Failed to fetch bookings", error);
-      toast.error("Failed to fetch bookings");
+      toast.error("No Bookings Found");
       set({ bookings: [] }); // Optional fallback
     }
   },
@@ -153,7 +153,7 @@ export const useAdminStore = create((set) => ({
       console.log(res.data.bookings);
     } catch (error) {
       console.log("Failed to fetch bookings", error);
-      toast.error("Failed to fetch bookings");
+      toast.error("No Bookings Found");
       set({ bookings: [] }); // Optional fallback
     }
   },
@@ -166,7 +166,6 @@ export const useAdminStore = create((set) => ({
       toast.success(res.data.message || "Booking updated");
 
       // Optional: refresh bookings after status update
-      await useAdminStore.getState().fetchPendingBookings();
       await useAdminStore.getState().fetchApprovedBookings();
     } catch (error) {
       console.log("Failed to respond bookings", error);
@@ -240,6 +239,18 @@ export const useAdminStore = create((set) => ({
       toast.error(
         error.response?.data?.message || "Failed to update testimonials"
       );
+    }
+  },
+
+  addGalleryImage: async (galleryData) => {
+    try {
+      const res = await axiosInstance.post("/admin/add_gallery_image", {
+        gallery: galleryData,
+      });
+      toast.success(res.data.message || "Image successfully added");
+    } catch (error) {
+      console.error("Failed to add image");
+      toast.error(error.response?.data?.message || "Failed to add image");
     }
   },
 

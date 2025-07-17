@@ -19,7 +19,7 @@ const Divider = () => {
       >
         Testimonials
       </h1>
-      <div className="font-pt-sans-narrow text-2xl mb-5">
+      <div className="font-pt-sans-narrow text-center pl-10 pr-10 text-2xl mb-5">
         {homepage?.testimonial?.length > 0 && (
           <>
             {homepage.testimonial.slice(0, 3).map((testimonial, index) => (

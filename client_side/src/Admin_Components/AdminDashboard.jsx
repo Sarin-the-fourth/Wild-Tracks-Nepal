@@ -14,6 +14,7 @@ import EditTestimonials from "./Homepage/Edittestimonials";
 import EditTourDetails from "./Tour/EditTourDetails";
 import DeleteTour from "./Tour/DeleteTour";
 import EditItinerary from "./Tour/EditItinerary";
+import EditGallery from "./Homepage/Editgallery";
 
 const AdminDashboard = () => {
   const [showTourForm, setShowTourForm] = useState(false);
@@ -29,6 +30,7 @@ const AdminDashboard = () => {
   const [showEditTourDetails, setShowEditTourDetials] = useState(false);
   const [showDeleteTour, setShowDeleteTour] = useState(false);
   const [showEditItinerary, setShowEditItinerary] = useState(false);
+  const [showEditGallery, setShowEditGallery] = useState(false);
 
   const handleSidebarItemClick = () => {
     setShowWelcome(false);
@@ -48,6 +50,7 @@ const AdminDashboard = () => {
     setShowEditTourDetials(false);
     setShowDeleteTour(false);
     setShowEditItinerary(false);
+    setShowEditGallery(false);
   };
 
   const handleAddBikeWizardClick = () => {
@@ -64,6 +67,7 @@ const AdminDashboard = () => {
     setShowEditTourDetials(false);
     setShowDeleteTour(false);
     setShowEditItinerary(false);
+    setShowEditGallery(false);
   };
 
   const handleBikeDetails = () => {
@@ -80,6 +84,7 @@ const AdminDashboard = () => {
     setShowEditTourDetials(false);
     setShowDeleteTour(false);
     setShowEditItinerary(false);
+    setShowEditGallery(false);
   };
 
   const handleManageBike = () => {
@@ -96,6 +101,7 @@ const AdminDashboard = () => {
     setShowEditTourDetials(false);
     setShowDeleteTour(false);
     setShowEditItinerary(false);
+    setShowEditGallery(false);
   };
 
   const handlePendingBooking = () => {
@@ -112,6 +118,7 @@ const AdminDashboard = () => {
     setShowEditTourDetials(false);
     setShowDeleteTour(false);
     setShowEditItinerary(false);
+    setShowEditGallery(false);
   };
 
   const handleApproveBooking = () => {
@@ -128,6 +135,7 @@ const AdminDashboard = () => {
     setShowEditTourDetials(false);
     setShowDeleteTour(false);
     setShowEditItinerary(false);
+    setShowEditGallery(false);
   };
 
   const handleBookingHistory = () => {
@@ -144,6 +152,7 @@ const AdminDashboard = () => {
     setShowEditTourDetials(false);
     setShowDeleteTour(false);
     setShowEditItinerary(false);
+    setShowEditGallery(false);
   };
 
   const handleEditCard = () => {
@@ -160,6 +169,7 @@ const AdminDashboard = () => {
     setShowEditTourDetials(false);
     setShowDeleteTour(false);
     setShowEditItinerary(false);
+    setShowEditGallery(false);
   };
 
   const handleTestimonials = () => {
@@ -176,6 +186,7 @@ const AdminDashboard = () => {
     setShowEditTourDetials(false);
     setShowDeleteTour(false);
     setShowEditItinerary(false);
+    setShowEditGallery(false);
   };
 
   const handleEditTourDetails = () => {
@@ -192,6 +203,7 @@ const AdminDashboard = () => {
     setShowWelcome(false);
     setShowDeleteTour(false);
     setShowEditItinerary(false);
+    setShowEditGallery(false);
   };
 
   const handleDeleteTour = () => {
@@ -208,10 +220,29 @@ const AdminDashboard = () => {
     setShowBikeWizard(false);
     setShowWelcome(false);
     setShowEditItinerary(false);
+    setShowEditGallery(false);
   };
 
   const handleEditItinerary = () => {
     setShowEditItinerary(true);
+    setShowDeleteTour(false);
+    setShowEditTourDetials(false);
+    setShowTestimonials(false);
+    setShowEditCard(false);
+    setshowBookingHistory(false);
+    setshowPendingBooking(false);
+    setshowApproveBooking(false);
+    setShowManageBike(false);
+    setShowBikeDetails(false);
+    setShowTourForm(false);
+    setShowBikeWizard(false);
+    setShowWelcome(false);
+    setShowEditGallery(false);
+  };
+
+  const handleEditGallery = () => {
+    setShowEditGallery(true);
+    setShowEditItinerary(false);
     setShowDeleteTour(false);
     setShowEditTourDetials(false);
     setShowTestimonials(false);
@@ -242,6 +273,7 @@ const AdminDashboard = () => {
         onEditTourDetailsClick={handleEditTourDetails}
         onDeleteTourClick={handleDeleteTour}
         onEditItinerary={handleEditItinerary}
+        onEditGallery={handleEditGallery}
       />
       <div className="flex flex-col p-4 space-y-4">
         <Searchbar />
@@ -276,6 +308,9 @@ const AdminDashboard = () => {
         )}
         {showEditItinerary && (
           <EditItinerary onClose={() => setShowEditItinerary(false)} />
+        )}
+        {showEditGallery && (
+          <EditGallery onClose={() => setShowEditGallery(false)} />
         )}
         {showWelcome && !showTourForm && <Welcomepage />}
       </div>

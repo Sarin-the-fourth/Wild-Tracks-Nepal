@@ -70,7 +70,7 @@ const ItineraryForm = ({
             placeholder="Activity title"
             value={entry.title}
             onChange={(e) => setEntry({ ...entry, title: e.target.value })}
-            className="w-full px-4 py-2 border bg-white rounded-md focus:outline-none focus:font-montserrat focus:border-transparent"
+            className="w-full px-4 py-2 border bg-white font-montserrat rounded-md focus:outline-none focus:font-montserrat focus:border-transparent"
           />
         </div>
 
@@ -84,7 +84,7 @@ const ItineraryForm = ({
             onChange={(e) =>
               setEntry({ ...entry, description: e.target.value })
             }
-            className="w-full px-4 py-2 border bg-white rounded-md focus:outline-none focus:font-montserrat focus:border-transparent"
+            className="w-full px-4 py-2 border font-montserrat bg-white rounded-md focus:outline-none focus:font-montserrat focus:border-transparent"
             rows="5"
           />
         </div>
