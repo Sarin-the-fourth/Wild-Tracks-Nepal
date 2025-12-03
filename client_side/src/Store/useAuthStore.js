@@ -57,8 +57,3 @@ export const useAuthStore = create((set) => ({
     }
   },
 }));
-
-// formdata: {
-// email: "",
-// password: ""
-// }

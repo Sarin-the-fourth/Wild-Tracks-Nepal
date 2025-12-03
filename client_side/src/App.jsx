@@ -10,7 +10,6 @@ import { useTourStore } from "./Store/useTourStore";
 import { useEffect } from "react";
 import NavBar from "./Client_Components/Navbar/NavBar";
 import AdminDashboard from "./Admin_Components/AdminDashboard";
-import TourWizard from "./Admin_Components/Tour/TourWizard";
 import { useAuthStore } from "./Store/useAuthStore";
 
 function App() {
@@ -59,11 +58,11 @@ function App() {
             admin ? <AdminDashboard /> : <Navigate to={"/admin/login"} />
           }
         />
-
+        {/* 
         <Route
           path="/tour-form"
           element={admin ? <TourWizard /> : <Navigate to={"/admin/login"} />}
-        />
+        /> */}
       </Routes>
       {!isadminroute && <Footer />}
 

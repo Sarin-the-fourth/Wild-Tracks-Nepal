@@ -21,7 +21,11 @@ const NavBar = () => {
   }, [prevScrollPos]);
 
   return (
-    <nav className={`navbar-wrapper ${visible ? "" : "hide-navbar"}`}>
+    <nav
+      className={`fixed top-0 left-0 w-full z-20 transition-transform duration-300 ${
+        visible ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
       <div className="navbar bg-white/30 backdrop-blur-sm border-0 px-8 py-5 font-bebas flex justify-center sticky transition-all duration-300 top-0 z-99">
         <div className="absolute left-5 top-1 bottom-1 flex items-center h-15 px-4">
           <Link to="/" className="text-lg cursor-pointer">

@@ -53,7 +53,7 @@ const Searchbar = () => {
         name,
       };
       await updateProfile(profileData, adminId);
-      toast.success("Profile updated successfully!");
+      // toast.success("Profile updated successfully!");
     } catch (error) {
       console.error("Error updating profile:", error);
     } finally {
