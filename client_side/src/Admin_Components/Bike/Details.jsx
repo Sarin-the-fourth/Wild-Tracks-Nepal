@@ -1,4 +1,4 @@
-import { useBikeStore } from "../../store/useBikeStore";
+import { useBikeStore } from "../../Store/useBikeStore";
 import { useEffect } from "react";
 
 const Details = () => {
