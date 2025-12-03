@@ -3,7 +3,7 @@ import bgimage from "./../../assets/images/uppermustang.jpg";
 import { useTourStore } from "../../Store/useTourStore";
 import { useBookStore } from "../../Store/useBookStore";
 import { toast } from "react-toastify";
-import { useBikeStore } from "../../store/useBikeStore.js";
+import { useBikeStore } from "../../Store/useBikeStore";
 
 const Contact = () => {
   const [formData, setformData] = useState({
