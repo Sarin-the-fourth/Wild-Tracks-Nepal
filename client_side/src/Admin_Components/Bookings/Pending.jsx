@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAdminStore } from "../../Store/useAdminStore";
-import { useBikeStore } from "../../store/useBikeStore";
+import { useBikeStore } from "../../Store/useBikeStore";
 
 const Pending = () => {
   const { fetchPendingBookings, deletependingbooking, bookings, assignBikes } =
