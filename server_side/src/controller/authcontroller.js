@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 import Admin from "../models/adminmodel.js";
 
 const generateAuthToken = (id) => {
-  //jwt token
   return jwt.sign({ id, role: "admin" }, process.env.JWT_SECRET, {
     expiresIn: "7d",
   });
@@ -26,7 +25,6 @@ export const sign_in = async (req, res) => {
       });
     }
 
-    // Generate JWT token
     const token = generateAuthToken(admin._id);
 
     res.cookie("jwt", token, {
@@ -61,6 +59,11 @@ export const sign_up = async (req, res) => {
         message: "Email and password are required",
       });
     }
+    if (/\d/.test(name)) {
+      return res.status(400).json({
+        message: "Name cannot contain numbers",
+      });
+    }
 
     const existingAdmin = await Admin.findOne({ email });
 
@@ -73,7 +76,6 @@ export const sign_up = async (req, res) => {
     const newAdmin = new Admin({ name, email, password });
     await newAdmin.save();
 
-    // Generate JWT token
     const token = generateAuthToken(newAdmin._id);
 
     res.cookie("jwt", token, {
@@ -144,6 +146,12 @@ export const updateProfile = async (req, res) => {
       return res.status(400).json({
         success: false,
         message: "All fields are required",
+      });
+    }
+    if (/\d/.test(name)) {
+      return res.status(400).json({
+        success: false,
+        message: "Name cannot contain numbers",
       });
     }
 

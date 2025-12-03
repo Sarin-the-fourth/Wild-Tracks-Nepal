@@ -37,7 +37,6 @@ export const book_tour = async (req, res) => {
       });
     }
 
-    //set end date based on number of days in the tour
     const end_date = new Date(start_date);
     end_date.setDate(end_date.getDate() + (tour.numberofdays - 1));
 
@@ -113,18 +112,6 @@ export const get_tour_details = async (req, res) => {
     const itinerary = await Itinerary.find({ tour: id }).select(
       "day title description"
     );
-
-    //-------------Show Book dates (To be developed)----------------//
-    // display booked date if the tour is booked
-    // const booking = await Booking.find({ tour: id, status: 'approved' })
-    // if (booking){
-    //     return res.status(200).json({
-    //     ...tour.toObject(),
-    //     itinerary,
-    //     book_start_date: booking[0].start_date,
-    //     book_end_date: booking[0].end_date,
-    // });
-    // }
 
     return res.status(200).json({
       ...tour.toObject(),
